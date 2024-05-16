@@ -1,0 +1,39 @@
+/* src/App.css */
+
+.App {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    padding-top: 4rem;
+    background-color: #000000;
+    color: #ffffff;
+    min-height: 100vh;
+  }
+  
+  .starship-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+  
+  .starship-card {
+    background-color: #1a1a1a;
+    border: 1px solid #666666;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    margin: 1rem;
+    padding: 1rem;
+    width: 300px;
+    text-align: left;
+  }
+  
+  .starship-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #007bff; /* or #ff0000 for Sith red */
+  }
+  
+  .starship-card p {
+    margin: 0.5rem 0;
+    color: #cccccc;
+  }

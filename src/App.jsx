@@ -1,27 +1,47 @@
-import { useState, useEffect } from 'react'
+// src/App.js
 
+import React, { useEffect, useState } from 'react';
+import './App.css';
+import NavBar from './components/NavBar';
+import { getAllStarships } from './services/sw-api';
 
 function App() {
-  const [starwars, setStarwars] = useState(null)
+  const [starships, setStarships] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
-    getStarwars()
-  },[])
+    async function fetchStarships() {
+      try {
+        const starships = await getAllStarships();
+        setStarships(starships);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    }
 
-  const getStarwars = async (searchTerm) => {
-    const response = await fetch(
-      `http swapi.dev/api/people/1/`
-    );
+    fetchStarships();
+  }, []);
 
-    const data = await response.json();
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
-    setStarwars(data);
-  }
-  console.log(starwars)
   return (
-    <>
-     {/* <StarwarsDisplay data ={data} /> */}
-    </>
-  )
+    <div className="App">
+      <NavBar />
+      <div className="starship-list">
+        {starships.map((starship) => (
+          <div key={starship.name} className="starship-card">
+            <h2>{starship.name}</h2>
+            <p>Model: {starship.model}</p>
+            <p>Manufacturer: {starship.manufacturer}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
